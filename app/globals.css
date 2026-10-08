@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/* Osteon: single "light-box" theme. Pale film-grey surfaces, ink text, deep teal accent.
+   The X-ray viewer stays true black so images are the brightest thing on screen. */
+:root {
+  --bg: #e9edf0;
+  --surface: #f8fafb;
+  --surface-2: #eef2f4;
+  --fill: rgba(14, 27, 36, 0.06);
+  --line: rgba(14, 27, 36, 0.1);
+  --line-strong: rgba(14, 27, 36, 0.22);
+  --fg: #0e1b24;
+  --muted: #55646f;
+  --faint: #7d8a94;
+  --accent: #0f6b7d;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(15, 107, 125, 0.1);
+  --viewer: #06090b;
+  --danger: #c8321f;
+  --warn-bg: #f6ecd2;
+  --warn-fg: #6b4a07;
+  --warn-line: rgba(107, 74, 7, 0.18);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 1px 2px rgba(14, 27, 36, 0.06),
+    0 16px 40px -12px rgba(14, 27, 36, 0.12);
+  --nav: rgba(233, 237, 240, 0.8);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fill: var(--fill);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-viewer: var(--viewer);
+  --color-danger: var(--danger);
+}
+
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.006em;
+}
+canvas { display: block; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 99px; }
+::selection { background: var(--accent); color: #fff; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.font-display { font-family: var(--font-display), Georgia, serif; font-weight: 400; }
+
+/* ---------- Shared components ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: 36px; padding: 0 14px; border-radius: 10px;
+  font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s, filter 0.15s;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; pointer-events: none; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { filter: brightness(1.12); }
+.btn-secondary { background: var(--surface); color: var(--fg); border: 1px solid var(--line-strong); }
+.btn-secondary:hover { background: var(--fill); }
+.btn-ghost { background: transparent; color: var(--muted); }
+.btn-ghost:hover { background: var(--fill); color: var(--fg); }
+.btn-lg { height: 44px; padding: 0 22px; font-size: 15px; border-radius: 12px; }
+
+/* ---------- Result viewer: keep image + buttons on one screen ---------- */
+.viewer-wrap canvas {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: max(300px, calc(100svh - 300px));
+  margin-inline: auto;
+}
+
+/* Scan line while the image is analysed */
+@keyframes scan {
+  0% { top: 0; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+.scan-line {
+  position: absolute; left: 0; right: 0; height: 2px; background: #fff;
+  box-shadow: 0 0 28px 8px rgba(80, 200, 230, 0.8);
+  animation: scan 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
