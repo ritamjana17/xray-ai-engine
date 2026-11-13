@@ -15,6 +15,10 @@ export interface AnalysisResult {
   summary: string;
   findings: Finding[];
   limitations: string;
+  /** Gemini model that produced the report */
+  model?: string;
+  /** Set when the vision AI could not be reached; holds the message to show */
+  unavailable?: string;
 }
 
 export interface ChatMessage {

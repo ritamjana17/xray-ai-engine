@@ -103,110 +103,82 @@ export async function POST(req: NextRequest) {
       ""
     );
 
-    // Call Gemini with fallback logic
-    const modelsToTry = [
-      "gemini-3.8-flash",
-      "gemini-omni-1.1-flash",
-      "gemini-3.1-pro-preview",
-      "gemini-2.5-flash",
-      "gemini-3.5-flash",
-    ];
+    // ── Call Gemini, falling back through several models ────────────────────
+    // Vercel stops this function after `maxDuration` seconds and then sends a
+    // plain-text error page, so we keep our own deadline below that and always
+    // answer with JSON. Order = fastest reliable models first (measured Nov 2026
+    // on the free tier). Override with GEMINI_MODELS="model-a,model-b".
+    const models: { name: string; capMs: number }[] = process.env.GEMINI_MODELS
+      ? process.env.GEMINI_MODELS.split(",").map((m) => ({ name: m.trim(), capMs: 25_000 }))
+      : [
+          { name: "gemini-3-flash-preview", capMs: 20_000 }, // ~6 s, good quality
+          { name: "gemini-3.5-flash-lite", capMs: 12_000 }, // ~2 s, fast fallback
+          { name: "gemini-3.8-flash", capMs: 10_000 }, // best, but often busy
+          { name: "gemini-3.5-flash", capMs: 25_000 }, // slow (15-40 s)
+          { name: "gemini-3.1-flash-lite", capMs: 25_000 },
+        ];
 
-    let lastError: any;
-    let rawText = "";
+    const started = Date.now();
+    const DEADLINE_MS = 50_000; // < maxDuration (60 s)
+    const ai = new GoogleGenAI({ apiKey });
     const errorDetails: string[] = [];
 
-    for (const modelName of modelsToTry) {
-      let attempts = 0;
-      let success = false;
-      
-      while (attempts < 2 && !success) {
-        try {
-          const ai = new GoogleGenAI({ apiKey });
-          const response = await ai.models.generateContent({
-            model: modelName,
-            contents: [
-              {
-                role: "user",
-                parts: [
-                  { text: SYSTEM_PROMPT },
-                  {
-                    inlineData: {
-                      mimeType: "image/jpeg",
-                      data: base64Data,
-                    },
-                  },
-                  {
-                    text: "Analyze this image for the educational demo. Ensure you only return valid JSON based on the rules provided.",
-                  },
-                ],
-              },
-            ],
-            config: {
-              temperature: 0.2,
-              maxOutputTokens: 8192,
-              responseMimeType: "application/json",
+    for (const { name, capMs } of models) {
+      const remaining = DEADLINE_MS - (Date.now() - started);
+      if (remaining < 3_000) break;
+
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), Math.min(capMs, remaining));
+      try {
+        const response = await ai.models.generateContent({
+          model: name,
+          contents: [
+            {
+              role: "user",
+              parts: [
+                { text: SYSTEM_PROMPT },
+                { inlineData: { mimeType: "image/jpeg", data: base64Data } },
+                {
+                  text: "Analyze this image for the educational demo. Ensure you only return valid JSON based on the rules provided.",
+                },
+              ],
             },
-          });
+          ],
+          config: {
+            temperature: 0.2,
+            maxOutputTokens: 8192,
+            responseMimeType: "application/json",
+            abortSignal: controller.signal,
+          },
+        });
 
-          rawText = response.text ?? "";
-          
-          if (rawText) {
-            success = true;
-            break; // Break the while loop
-          }
-        } catch (err: any) {
-          lastError = err;
-          
-          const errMsg = err?.message || JSON.stringify(err);
-          
-          // If it's a 503 Unavailable, we can retry after a short delay
-          if (err?.status === 503 || errMsg.includes("503") || errMsg.includes("high demand")) {
-            console.warn(`[/api/analyze] Model ${modelName} 503 High Demand. Retrying...`);
-            attempts++;
-            if (attempts < 2) {
-               await new Promise(res => setTimeout(res, 2000)); // Wait 2 seconds
-            } else {
-               errorDetails.push(`${modelName}: 503 High Demand`);
-            }
-          } else {
-            console.warn(`[/api/analyze] Model ${modelName} failed with non-retriable error.`);
-            errorDetails.push(`${modelName}: ${err?.status} ${errMsg.substring(0, 80)}`);
-            break; // Break the while loop to move to the next model
-          }
-        }
-      }
-      
-      // If we succeeded with this model, break out of the fallback loop
-      if (success) {
-        break;
+        const rawText = response.text ?? "";
+        const jsonMatch = rawText.match(/\{[\s\S]*\}/); // model sometimes wraps JSON in markdown
+        if (!jsonMatch) throw new Error("returned no JSON");
+        const result: AnalysisResult = JSON.parse(jsonMatch[0]);
+        console.info(`[/api/analyze] ${name} answered in ${Date.now() - started} ms`);
+        return NextResponse.json({ ...result, model: name });
+      } catch (err: unknown) {
+        // 503 busy, 429 out of quota, 404 retired, timeout, bad JSON: try the next model
+        const e = err as { status?: number; message?: string; name?: string };
+        const why = controller.signal.aborted
+          ? "timed out"
+          : `${e?.status ?? ""} ${(e?.message ?? String(err)).substring(0, 80)}`.trim();
+        console.warn(`[/api/analyze] ${name} failed: ${why}`);
+        errorDetails.push(`${name}: ${why}`);
+      } finally {
+        clearTimeout(timer);
       }
     }
 
-    try {
-      if (!rawText) {
-        throw new Error(`All models failed. Details: ${errorDetails.join(" | ")}`);
-      }
-
-      // Extract JSON from the response (model sometimes wraps in markdown)
-      const jsonMatch = rawText.match(/\{[\s\S]*\}/);
-      if (!jsonMatch) {
-        throw new Error(`Model refused to answer or returned invalid JSON. Output: "${rawText.substring(0, 150)}..."`);
-      }
-
-      const result: AnalysisResult = JSON.parse(jsonMatch[0]);
-      return NextResponse.json(result);
-    } catch (parseError: unknown) {
-      console.error("Parse error:", parseError, rawText);
-      const msg =
-        parseError instanceof Error
-          ? parseError.message
-          : "Unknown parse error";
-      return NextResponse.json(
-        { error: `Failed to parse AI response: ${msg}` },
-        { status: 500 }
-      );
-    }
+    return NextResponse.json(
+      {
+        error:
+          "The AI service is busy right now (Google's servers are overloaded or the free quota is used up). Please try again in a minute.",
+        details: errorDetails,
+      },
+      { status: 503 }
+    );
   } catch (error: unknown) {
     console.error("API error:", error);
     const msg = error instanceof Error ? error.message : "Unknown error";

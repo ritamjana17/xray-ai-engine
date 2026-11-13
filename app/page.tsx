@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import UploadZone from "@/components/UploadZone";
 import XrayCanvas from "@/components/XrayCanvas";
@@ -76,7 +76,10 @@ export default function Home() {
     listScans().then(setHistory);
   }, []);
 
+  const lastFileRef = useRef<File | null>(null);
+
   const handleImageSelected = useCallback(async (file: File) => {
+    lastFileRef.current = file;
     setAnalysisResult(null);
     setCurrentImage(null);
     setCurrentId(null);
@@ -99,8 +102,22 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ imageBase64: base64 }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || `Server error ${res.status}`);
+      // The host can answer with a plain-text error page (e.g. a timeout), so never assume JSON
+      const text = await res.text();
+      let data: (AnalysisResult & { error?: string }) | null = null;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        data = null;
+      }
+      if (!res.ok || !data) {
+        throw new Error(
+          data?.error ??
+            (res.status === 504 || res.status === 503
+              ? "The AI service took too long to answer because Google's servers are busy right now."
+              : `The server returned an unexpected response (error ${res.status}).`)
+        );
+      }
 
       if (!data.is_xray) {
         setErrorMsg("This doesn't look like an X-ray. Upload a radiograph as a JPG or PNG.");
@@ -128,9 +145,17 @@ export default function Home() {
           setHistory((h) => [entry, ...h]);
         });
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Unknown error";
-      setErrorMsg(`Analysis failed: ${msg}. Try again.`);
-      setCurrentImage(null);
+      // Keep the X-ray on screen so the in-browser quantum model still gives its opinion
+      const msg = err instanceof Error ? err.message : "Unknown error.";
+      setScanName("Scan");
+      setAnalysisResult({
+        is_xray: true,
+        body_region: "Report unavailable",
+        summary: "",
+        findings: [],
+        limitations: "",
+        unavailable: msg.endsWith(".") ? msg : `${msg}.`,
+      });
     } finally {
       setIsAnalyzing(false);
     }
@@ -443,7 +468,7 @@ export default function Home() {
                   placeholder="Name this scan, e.g. patient name"
                   className="h-10 w-full max-w-[380px] rounded-xl border border-transparent bg-transparent px-3 font-display text-[26px] leading-none outline-none transition hover:border-line-strong focus:border-accent focus:bg-surface"
                 />
-                <span className="hidden text-xs text-faint sm:inline">Saved to history</span>
+                {currentId && <span className="hidden text-xs text-faint sm:inline">Saved to history</span>}
               </div>
               <button onClick={goHome} className="btn btn-primary">New analysis</button>
             </div>
@@ -465,12 +490,30 @@ export default function Home() {
                 className="card overflow-y-auto p-6 lg:sticky lg:top-[76px] lg:max-h-[calc(100svh-150px)]"
                 aria-label="Report"
               >
-                <span className="inline-block rounded-full bg-accent-soft px-3 py-1 text-[13px] font-medium capitalize text-accent">
-                  {analysisResult.body_region}
-                </span>
-                <p className="mt-4 text-[16px] leading-relaxed">{analysisResult.summary}</p>
-                <div className="my-6 h-px bg-line" />
-                <FindingsList findings={analysisResult.findings ?? []} limitations={analysisResult.limitations} />
+                {analysisResult.unavailable ? (
+                  <div role="alert" className="rounded-xl border border-danger/20 bg-danger/10 p-4">
+                    <p className="text-[15px] font-semibold text-danger">The AI report isn&apos;t available</p>
+                    <p className="mt-1 text-sm leading-relaxed text-fg/80">{analysisResult.unavailable}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-fg/80">
+                      The quantum model below runs in your browser, so its result is still shown.
+                    </p>
+                    <button
+                      onClick={() => lastFileRef.current && handleImageSelected(lastFileRef.current)}
+                      className="btn btn-primary mt-3"
+                    >
+                      Try the AI report again
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <span className="inline-block rounded-full bg-accent-soft px-3 py-1 text-[13px] font-medium capitalize text-accent">
+                      {analysisResult.body_region}
+                    </span>
+                    <p className="mt-4 text-[16px] leading-relaxed">{analysisResult.summary}</p>
+                    <div className="my-6 h-px bg-line" />
+                    <FindingsList findings={analysisResult.findings ?? []} limitations={analysisResult.limitations} />
+                  </>
+                )}
                 <QuantumPanel
                   imageBase64={currentImage}
                   knownFractured={knownFractured}

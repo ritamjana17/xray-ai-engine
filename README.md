@@ -115,10 +115,11 @@ Step by step, this is what happens when you analyse an X-ray:
    - return **only JSON** in a fixed format: body region, summary, findings (label, description, severity, confidence, box) and limitations.
 
    The setting `responseMimeType: "application/json"` forces Gemini to reply with machine-readable JSON instead of chat text.
-5. **Fallback models.** If one Gemini model is overloaded (HTTP 503), the server waits and retries, then tries the next model in a list. This keeps the app working when Google's servers are busy.
-6. **Drawing the boxes** (`components/XrayCanvas.tsx`). Gemini gives box coordinates on a **0–1000 scale** as `[ymin, xmin, ymax, xmax]`. So 500 means "halfway across the image", whatever its real size. The browser converts them to pixels and draws them on a `<canvas>` over the X-ray. The original image is never modified.
-7. **Radiologist comparison.** For FracAtlas samples we know where real doctors marked the fracture. The dataset stores these as YOLO boxes (centre x, centre y, width, height, each 0–1), which we converted to the same 0–1000 format so they can be overlaid.
-8. **History** (`lib/history.ts`). Results are saved in **IndexedDB**, a database built into the browser. They stay on that device only.
+5. **Fallback models with a time limit.** The server tries a list of Gemini models, fastest and most reliable first. If one is overloaded (503), out of free quota (429), retired (404), or too slow, it moves straight to the next one. Vercel stops a request after 60 seconds, so the server keeps its own 50-second deadline and always sends back a proper answer. A normal analysis takes about 5–10 seconds.
+6. **If Gemini still fails**, the page doesn't break. It shows a clear message with a **Try again** button, and the quantum model's result is still shown, because that model runs in the browser.
+7. **Drawing the boxes** (`components/XrayCanvas.tsx`). Gemini gives box coordinates on a **0–1000 scale** as `[ymin, xmin, ymax, xmax]`. So 500 means "halfway across the image", whatever its real size. The browser converts them to pixels and draws them on a `<canvas>` over the X-ray. The original image is never modified.
+8. **Radiologist comparison.** For FracAtlas samples we know where real doctors marked the fracture. The dataset stores these as YOLO boxes (centre x, centre y, width, height, each 0–1), which we converted to the same 0–1000 format so they can be overlaid.
+9. **History** (`lib/history.ts`). Results are saved in **IndexedDB**, a database built into the browser. They stay on that device only.
 
 ---
 
@@ -405,7 +406,7 @@ No. Gemini is Google's pre-trained multimodal model. We only wrote the prompt an
 - **Not for medical use.** Both models can be wrong. Gemini can miss fractures or invent findings.
 - **Small dataset** (200 images), so accuracy is modest and results vary with the train/test split.
 - **Simulated quantum hardware.** No real quantum computer is used. On real hardware, noise would reduce accuracy.
-- **Gemini availability.** When Google's servers are busy, analysis can take longer or fail. The app retries and falls back to other models.
+- **Gemini availability.** The app uses a free Gemini API key, which has daily limits per model. When Google's servers are busy or the quota runs out, the AI report can fail; the app then shows a Try again button and still shows the quantum result. Quotas reset every day.
 - **Privacy.** Images are sent to Google's Gemini API for analysis. Remove names and IDs from images before uploading.
 
 ---
