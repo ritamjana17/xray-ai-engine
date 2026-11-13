@@ -13,6 +13,8 @@ import ModelInfo from "@/components/ModelInfo";
 import { AnalysisResult } from "@/lib/types";
 import { resizeImage } from "@/lib/imageUtils";
 import { SAMPLES } from "@/lib/samples";
+import { DATASETS, datasetName } from "@/lib/datasets";
+import { MODEL } from "@/lib/quantum/classifier";
 import {
   HistoryEntry, listScans, saveScan, renameScan, deleteScan, clearScans, makeThumb, newId,
 } from "@/lib/history";
@@ -216,7 +218,7 @@ export default function Home() {
             Osteon
           </button>
           <nav className="flex items-center gap-1.5">
-            <button onClick={() => setShowModel(true)} className="btn btn-ghost">Quantum model</button>
+            <button onClick={() => setShowModel(true)} className="btn btn-ghost"><span className="sm:hidden">Model</span><span className="hidden sm:inline">Quantum model</span></button>
             <button onClick={() => setShowSamples(true)} className="btn btn-ghost">Samples</button>
             <button onClick={() => setShowHistory(true)} className="btn btn-secondary">
               History
@@ -327,21 +329,81 @@ export default function Home() {
                       onClick={() => handleSampleSelected(`/samples/${s.filename}`, s.groundTruth, s.fractured)}
                       className="group text-left"
                     >
-                      <div className="aspect-square overflow-hidden rounded-2xl bg-viewer ring-1 ring-line transition group-hover:ring-2 group-hover:ring-accent">
+                      <div className="relative aspect-square overflow-hidden rounded-2xl bg-viewer ring-1 ring-line transition group-hover:ring-2 group-hover:ring-accent">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={`/samples/${s.filename}`}
                           alt={s.label}
                           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.05]"
                         />
+                        <span
+                          className="absolute left-2 top-2 rounded-full px-2 py-0.5 text-[11px] font-semibold text-white"
+                          style={{ background: s.fractured ? "rgba(229,57,42,.92)" : "rgba(47,168,79,.92)" }}
+                        >
+                          {s.fractured ? "Fracture" : "Normal"}
+                        </span>
                       </div>
                       <p className="mt-2 truncate text-sm font-medium">{s.label}</p>
-                      <p className="truncate text-xs text-muted">{s.region}</p>
+                      <p className="truncate text-xs text-muted">{datasetName(s.source)}</p>
                     </button>
                   ))}
                 </div>
               </section>
             )}
+
+            {/* ---------------- How it works ---------------- */}
+            <section className="mt-20" aria-label="How it works">
+              <h2 className="font-display text-4xl">How it works</h2>
+              <p className="mt-2 max-w-[620px] text-muted">
+                Every X-ray is read by two independent models: a large vision AI that explains what it sees, and a small
+                hybrid quantum-classical network that gives a yes/no fracture estimate.
+              </p>
+              <div className="mt-8 grid gap-4 md:grid-cols-3">
+                {[
+                  {
+                    n: "1",
+                    t: "Upload or pick a sample",
+                    d: `Use your own radiograph or one of ${SAMPLES.length} labelled X-rays from two public datasets. The image is resized in your browser before anything is sent.`,
+                  },
+                  {
+                    n: "2",
+                    t: "Vision AI reads it",
+                    d: "Google Gemini looks at the image and returns findings, severity, confidence and box coordinates, which are drawn on the X-ray.",
+                  },
+                  {
+                    n: "3",
+                    t: "Quantum model checks it",
+                    d: `${MODEL.featureNames.length} image measurements are fed through a ${MODEL.nQubits}-qubit quantum circuit, simulated in your browser, to estimate the chance of a fracture.`,
+                  },
+                ].map((s) => (
+                  <div key={s.n} className="card p-6">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-semibold text-accent-ink">
+                      {s.n}
+                    </span>
+                    <p className="mt-4 text-[17px] font-semibold">{s.t}</p>
+                    <p className="mt-1.5 text-[14.5px] leading-relaxed text-muted">{s.d}</p>
+                  </div>
+                ))}
+              </div>
+
+              <dl className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
+                {[
+                  [`${MODEL.dataset.total}`, `X-rays, ${MODEL.dataset.perClass} per class`],
+                  [`${MODEL.nQubits} qubits`, `${MODEL.nLayers} entangling layers`],
+                  [`${Math.round(MODEL.metrics.test.hybrid_quantum.accuracy * 100)}%`, `accuracy on ${MODEL.dataset.test} unseen X-rays`],
+                  [`${MODEL.params.total}`, "trainable weights in total"],
+                ].map(([v, l]) => (
+                  <div key={l} className="rounded-2xl border border-line bg-surface/60 px-5 py-4">
+                    <dt className="sr-only">{l}</dt>
+                    <dd className="font-display text-4xl leading-none">{v}</dd>
+                    <p className="mt-2 text-[13px] text-muted">{l}</p>
+                  </div>
+                ))}
+              </dl>
+              <button onClick={() => setShowModel(true)} className="btn btn-secondary mt-6">
+                Explore the quantum model
+              </button>
+            </section>
           </div>
         )}
 
@@ -419,6 +481,28 @@ export default function Home() {
           </motion.div>
         )}
       </main>
+
+      <footer className="border-t border-line">
+        <div className="mx-auto flex w-full max-w-[1240px] flex-col gap-3 px-5 py-8 text-[13px] text-muted lg:flex-row lg:items-start lg:justify-between lg:px-8">
+          <p className="max-w-[560px] leading-relaxed">
+            <span className="font-semibold text-fg">Educational demo, not a medical device.</span> Results can be wrong
+            and must never be used for diagnosis. Always consult a qualified doctor.
+          </p>
+          <p className="leading-relaxed lg:text-right">
+            Sample X-rays from{" "}
+            {Object.values(DATASETS).map((d, i) => (
+              <span key={d.name}>
+                {i > 0 && " and "}
+                <a href={d.url} target="_blank" rel="noreferrer" className="text-accent hover:underline">
+                  {d.name}
+                </a>
+              </span>
+            ))}
+            .<br />
+            Vision AI by Google Gemini &middot; Quantum model built with PennyLane
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -37,6 +37,7 @@ from __future__ import annotations
 import csv
 import json
 import math
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -284,7 +285,11 @@ def main():
             torch.zeros(N_QUBITS, dtype=torch.float64), qmodel.q.weights.detach()
         )
         fig.savefig(RESULTS / "circuit.png", dpi=110, bbox_inches="tight")
-        print("Wrote quantum/results/*.png")
+        public = ROOT / "public" / "model"          # figures shown in the website's model dialog
+        public.mkdir(parents=True, exist_ok=True)
+        for name in ("circuit.png", "training_curve.png", "confusion_matrix.png"):
+            shutil.copy(RESULTS / name, public / name)
+        print("Wrote quantum/results/*.png and public/model/*.png")
     except Exception as e:  # matplotlib is optional
         print(f"(skipped figures: {e})")
 

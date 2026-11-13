@@ -63,7 +63,7 @@ Return ONLY valid JSON matching this exact schema:
 }`;
 
 // ──────────────── Handler ──────────────────────────────────────────────────────
-export const maxDuration = 30; // Vercel function timeout (seconds)
+export const maxDuration = 60; // Vercel function timeout (seconds); leaves room for Gemini retries
 
 export async function POST(req: NextRequest) {
   try {

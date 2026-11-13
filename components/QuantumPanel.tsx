@@ -67,8 +67,8 @@ export default function QuantumPanel({ imageBase64, knownFractured, onShowModel 
                     (pred.label === "fracture") === knownFractured ? "rgba(47,168,79,.92)" : "rgba(229,57,42,.92)",
                 }}
               >
-                Dataset label: {knownFractured ? "fracture" : "normal"}{" "}
-                {(pred.label === "fracture") === knownFractured ? "✓" : "✗"}
+                {(pred.label === "fracture") === knownFractured ? "✓ Matches" : "✗ Disagrees with"} dataset label (
+                {knownFractured ? "fracture" : "normal"})
               </span>
             )}
           </div>
@@ -89,10 +89,11 @@ export default function QuantumPanel({ imageBase64, knownFractured, onShowModel 
           <div className="mt-2 grid grid-cols-4 gap-2">
             {pred.expectations.map((e, i) => (
               <div key={i} className="rounded-lg border border-line bg-surface px-2 py-2 text-center">
-                <p className="text-[11px] text-muted">q{i}</p>
-                <div className="relative mx-auto mt-1 h-10 w-2 overflow-hidden rounded-full bg-fill">
+                <p className="text-[11px] font-medium text-muted">Qubit {i}</p>
+                <div className="relative mx-auto mt-1.5 h-14 w-3 overflow-hidden rounded-full bg-fill">
+                  <div className="absolute inset-x-0 top-1/2 h-px bg-line-strong" />
                   <div
-                    className="absolute left-0 w-full rounded-full bg-accent"
+                    className="absolute left-0 w-full bg-accent"
                     style={
                       e >= 0
                         ? { bottom: "50%", height: `${(e / 2) * 100}%` }

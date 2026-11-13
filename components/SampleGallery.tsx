@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { SAMPLES } from "@/lib/samples";
+import { datasetName } from "@/lib/datasets";
 
 interface Props {
   onSelect: (samplePath: string, groundTruth?: unknown[], fractured?: boolean) => void;
@@ -72,7 +73,7 @@ export default function SampleGallery({ onSelect, onClose }: Props) {
             <span className="mx-1 w-px self-stretch bg-line" />
             {(["all", "FracAtlas", "BoneFX"] as const).map((s) => (
               <button key={s} onClick={() => setSrc(s)} className={chip(src === s)} aria-pressed={src === s}>
-                {s === "all" ? "Both datasets" : s === "BoneFX" ? "Bone Fracture" : s}
+                {s === "all" ? "Both datasets" : datasetName(s)}
               </button>
             ))}
           </div>
@@ -108,7 +109,7 @@ export default function SampleGallery({ onSelect, onClose }: Props) {
                 )}
               </div>
               <p className="mt-2.5 truncate text-sm font-medium">{sample.label}</p>
-              <p className="truncate text-xs text-muted">{sample.region}</p>
+              <p className="truncate text-xs text-muted">{datasetName(sample.source)}</p>
             </button>
           ))}
         </div>

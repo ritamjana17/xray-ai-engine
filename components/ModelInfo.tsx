@@ -60,6 +60,17 @@ export default function ModelInfo({ onClose }: Props) {
 
         <div className="max-h-[70vh] space-y-7 overflow-y-auto px-7 py-6 text-[14px]">
           <section>
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-faint">In plain words</h3>
+            <p className="mt-2 leading-relaxed text-muted">
+              A normal neural network passes numbers through layers of weights. Here, one of those layers is a small
+              quantum circuit. The X-ray is summarised as {MODEL.featureNames.length} numbers, squeezed into{" "}
+              {MODEL.nQubits} rotation angles, and each angle turns one qubit. The qubits are then entangled with each
+              other and measured. Training adjusts both the ordinary weights and the quantum gate angles until the
+              measurements separate fractured from normal X-rays.
+            </p>
+          </section>
+
+          <section>
             <h3 className="text-xs font-semibold uppercase tracking-wide text-faint">Pipeline</h3>
             <ol className="mt-3 space-y-2">
               {steps.map(([t, d], i) => (
@@ -80,6 +91,20 @@ export default function ModelInfo({ onClose }: Props) {
             <p className="mt-3 text-[13px] text-muted">
               {MODEL.params.total} trainable weights ({MODEL.params.quantum} quantum, {MODEL.params.classical} classical),
               all trained together end to end.
+            </p>
+          </section>
+
+          <section>
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-faint">The trained circuit</h3>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/model/circuit.png"
+              alt="Quantum circuit: RY embedding on 4 qubits, then 3 layers of Rot gates and CNOT rings, then measurement"
+              className="mt-3 w-full rounded-xl border border-line bg-white p-2"
+            />
+            <p className="mt-2 text-[12px] text-faint">
+              RY gates load the data, Rot gates hold the trained weights, CNOT gates entangle the qubits, the meters
+              measure each qubit.
             </p>
           </section>
 
@@ -120,6 +145,12 @@ export default function ModelInfo({ onClose }: Props) {
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-[1fr_auto]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/model/training_curve.png" alt="Training loss and accuracy over 100 steps for the hybrid and classical twin models" className="w-full rounded-xl border border-line bg-white p-1" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/model/confusion_matrix.png" alt="Confusion matrix of the hybrid model on the 60 test images" className="w-full rounded-xl border border-line bg-white p-1 sm:w-[190px]" />
             </div>
             <p className="mt-3 text-[13px] text-muted">
               Hybrid model on the test set: sensitivity {pct(m.test.hybrid_quantum.sensitivity)}, specificity{" "}
