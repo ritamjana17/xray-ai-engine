@@ -1,0 +1,99 @@
+{
+  "config": {
+    "qubits": 4,
+    "layers": 3,
+    "epochs": 100,
+    "lr": 0.05,
+    "weight_decay": 0.05,
+    "batch": "full",
+    "seed": 7
+  },
+  "dataset": {
+    "perClass": 100,
+    "total": 200,
+    "train": 140,
+    "test": 60
+  },
+  "test": {
+    "hybrid_quantum": {
+      "accuracy": 0.65,
+      "sensitivity": 0.7666666666666667,
+      "specificity": 0.5333333333333333,
+      "precision": 0.6216216216216216,
+      "auc": 0.6577777777777778,
+      "confusion": {
+        "tn": 16,
+        "fp": 14,
+        "fn": 7,
+        "tp": 23
+      }
+    },
+    "classical_twin": {
+      "accuracy": 0.5166666666666667,
+      "sensitivity": 0.6333333333333333,
+      "specificity": 0.4,
+      "precision": 0.5135135135135135,
+      "auc": 0.6011111111111113,
+      "confusion": {
+        "tn": 12,
+        "fp": 18,
+        "fn": 11,
+        "tp": 19
+      }
+    },
+    "logistic_regression": {
+      "accuracy": 0.6333333333333333,
+      "sensitivity": 0.6666666666666666,
+      "specificity": 0.6,
+      "precision": 0.625,
+      "auc": 0.6577777777777779,
+      "confusion": {
+        "tn": 18,
+        "fp": 12,
+        "fn": 10,
+        "tp": 20
+      }
+    }
+  },
+  "train_accuracy": 0.8928571428571429,
+  "cross_validation": {
+    "hybrid_quantum": {
+      "mean": 0.5900000000000001,
+      "std": 0.03391164991562632,
+      "folds": [
+        0.55,
+        0.6,
+        0.625,
+        0.55,
+        0.625
+      ]
+    },
+    "classical_twin": {
+      "mean": 0.615,
+      "std": 0.05830951894845299,
+      "folds": [
+        0.6,
+        0.6,
+        0.65,
+        0.525,
+        0.7
+      ]
+    },
+    "logistic_regression": {
+      "mean": 0.64,
+      "std": 0.046368092477478536,
+      "folds": [
+        0.575,
+        0.675,
+        0.65,
+        0.6,
+        0.7
+      ]
+    }
+  },
+  "parameters": {
+    "total": 249,
+    "quantum": 36,
+    "classical": 213
+  }
+}

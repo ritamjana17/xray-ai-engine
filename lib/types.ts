@@ -32,6 +32,8 @@ export interface Sample {
   region: string;
   fractured?: boolean;
   source?: string;
+  /** Which part of the quantum model's dataset this image belongs to */
+  split?: "train" | "test";
   /** Optional radiologist ground-truth boxes, same format as Finding */
   groundTruth?: {
     label: string;

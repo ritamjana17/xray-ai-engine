@@ -8,6 +8,8 @@ export interface HistoryEntry {
   thumb: string;
   result: AnalysisResult;
   groundTruth?: unknown[];
+  /** Dataset label when the scan was a built-in sample */
+  knownFractured?: boolean;
 }
 
 const DB_NAME = "osteon";

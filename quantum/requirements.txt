@@ -1,0 +1,9 @@
+# Python tools for building the dataset and training the hybrid quantum model.
+# Not needed to run the website (the website runs the trained model in the browser).
+#   pip install -r quantum/requirements.txt
+numpy>=2.0
+pillow>=11.0
+scikit-learn>=1.5
+pennylane>=0.40
+torch>=2.4
+matplotlib>=3.8

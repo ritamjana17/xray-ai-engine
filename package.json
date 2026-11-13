@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:quantum": "node --no-warnings scripts/check-quantum.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.28.0",

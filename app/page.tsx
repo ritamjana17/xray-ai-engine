@@ -7,6 +7,8 @@ import XrayCanvas from "@/components/XrayCanvas";
 import FindingsList from "@/components/FindingsList";
 import SampleGallery from "@/components/SampleGallery";
 import HistoryPanel, { formatWhen } from "@/components/HistoryPanel";
+import QuantumPanel from "@/components/QuantumPanel";
+import ModelInfo from "@/components/ModelInfo";
 
 import { AnalysisResult } from "@/lib/types";
 import { resizeImage } from "@/lib/imageUtils";
@@ -20,6 +22,22 @@ const setGroundTruth = (gt?: unknown[]) => {
 };
 const getGroundTruth = () =>
   (window as unknown as Record<string, unknown>).__groundTruth as unknown[] | undefined;
+
+// Home-page picks: alternate fractured / normal from both datasets
+const FEATURED = (() => {
+  const pick = (src: string, f: boolean, n: number) =>
+    SAMPLES.filter((s) => s.source === src && s.fractured === f).slice(0, n);
+  return [
+    ...pick("FracAtlas", true, 2), ...pick("FracAtlas", false, 1),
+    ...pick("BoneFX", true, 2), ...pick("BoneFX", false, 1),
+  ];
+})();
+
+const setKnownLabel = (v?: boolean) => {
+  (window as unknown as Record<string, unknown>).__knownFractured = v;
+};
+const getKnownLabel = () =>
+  (window as unknown as Record<string, unknown>).__knownFractured as boolean | undefined;
 
 const STATUS = ["Preparing the image", "Locating areas of interest", "Rating severity", "Writing the summary"];
 
@@ -43,6 +61,8 @@ export default function Home() {
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [showSamples, setShowSamples] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
+  const [showModel, setShowModel] = useState(false);
+  const [knownFractured, setKnownFractured] = useState<boolean | undefined>(undefined);
   const [showRadiologistBoxes, setShowRadiologistBoxes] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -98,7 +118,10 @@ export default function Home() {
       makeThumb(base64)
         .catch(() => "")
         .then(async (thumb) => {
-          const entry: HistoryEntry = { id, name, createdAt: Date.now(), image: base64, thumb, result: data, groundTruth };
+          const entry: HistoryEntry = {
+            id, name, createdAt: Date.now(), image: base64, thumb, result: data, groundTruth,
+            knownFractured: getKnownLabel(),
+          };
           await saveScan(entry);
           setHistory((h) => [entry, ...h]);
         });
@@ -115,19 +138,23 @@ export default function Home() {
   const handleUpload = useCallback(
     (file: File) => {
       setGroundTruth(undefined);
+      setKnownLabel(undefined);
+      setKnownFractured(undefined);
       handleImageSelected(file);
     },
     [handleImageSelected]
   );
 
   const handleSampleSelected = useCallback(
-    async (samplePath: string, groundTruth?: unknown[]) => {
+    async (samplePath: string, groundTruth?: unknown[], fractured?: boolean) => {
       setShowSamples(false);
       try {
         const res = await fetch(samplePath);
         const blob = await res.blob();
         const file = new File([blob], samplePath.split("/").pop() || "sample.jpg", { type: blob.type });
         setGroundTruth(groundTruth ?? undefined);
+        setKnownLabel(fractured);
+        setKnownFractured(fractured);
         await handleImageSelected(file);
       } catch {
         setErrorMsg("We couldn't load that sample image.");
@@ -146,6 +173,7 @@ export default function Home() {
 
   const openFromHistory = (entry: HistoryEntry) => {
     setGroundTruth(entry.groundTruth);
+    setKnownFractured(entry.knownFractured);
     setShowRadiologistBoxes(false);
     setErrorMsg(null);
     setCurrentImage(entry.image);
@@ -188,6 +216,7 @@ export default function Home() {
             Osteon
           </button>
           <nav className="flex items-center gap-1.5">
+            <button onClick={() => setShowModel(true)} className="btn btn-ghost">Quantum model</button>
             <button onClick={() => setShowSamples(true)} className="btn btn-ghost">Samples</button>
             <button onClick={() => setShowHistory(true)} className="btn btn-secondary">
               History
@@ -203,6 +232,7 @@ export default function Home() {
 
       <AnimatePresence>
         {showSamples && <SampleGallery onSelect={handleSampleSelected} onClose={() => setShowSamples(false)} />}
+        {showModel && <ModelInfo onClose={() => setShowModel(false)} />}
         {showHistory && (
           <HistoryPanel
             entries={history}
@@ -233,6 +263,7 @@ export default function Home() {
                   {[
                     ["Outlined regions", "Boxes drawn directly on the bone, hover to inspect."],
                     ["Severity and confidence", "Each finding rated high, medium or low."],
+                    ["Hybrid quantum check", "A 4-qubit quantum-classical model gives a second, independent opinion."],
                     ["Saved to history", "Name each scan after the patient and reopen it any time."],
                   ].map(([t, d]) => (
                     <li key={t} className="flex gap-3">
@@ -290,10 +321,10 @@ export default function Home() {
                   </button>
                 </div>
                 <div className="grid grid-cols-3 gap-3 sm:grid-cols-5 lg:grid-cols-6">
-                  {SAMPLES.slice(0, 6).map((s) => (
+                  {FEATURED.map((s) => (
                     <button
                       key={s.filename}
-                      onClick={() => handleSampleSelected(`/samples/${s.filename}`, s.groundTruth)}
+                      onClick={() => handleSampleSelected(`/samples/${s.filename}`, s.groundTruth, s.fractured)}
                       className="group text-left"
                     >
                       <div className="aspect-square overflow-hidden rounded-2xl bg-viewer ring-1 ring-line transition group-hover:ring-2 group-hover:ring-accent">
@@ -378,6 +409,11 @@ export default function Home() {
                 <p className="mt-4 text-[16px] leading-relaxed">{analysisResult.summary}</p>
                 <div className="my-6 h-px bg-line" />
                 <FindingsList findings={analysisResult.findings ?? []} limitations={analysisResult.limitations} />
+                <QuantumPanel
+                  imageBase64={currentImage}
+                  knownFractured={knownFractured}
+                  onShowModel={() => setShowModel(true)}
+                />
               </aside>
             </div>
           </motion.div>

@@ -1,0 +1,201 @@
+filename,label,source,region,split,original_file
+fracatlas_fractured_001.jpg,1,FracAtlas,Leg,train,IMG0000151.jpg
+fracatlas_fractured_002.jpg,1,FracAtlas,Hand,train,IMG0000156.jpg
+fracatlas_fractured_003.jpg,1,FracAtlas,Hand,test,IMG0000207.jpg
+fracatlas_fractured_004.jpg,1,FracAtlas,Hand,train,IMG0000762.jpg
+fracatlas_fractured_005.jpg,1,FracAtlas,Hand,train,IMG0001151.jpg
+fracatlas_fractured_006.jpg,1,FracAtlas,Hand,train,IMG0001198.jpg
+fracatlas_fractured_007.jpg,1,FracAtlas,Leg,test,IMG0001351.jpg
+fracatlas_fractured_008.jpg,1,FracAtlas,Hand,test,IMG0001367.jpg
+fracatlas_fractured_009.jpg,1,FracAtlas,Hand,test,IMG0001410.jpg
+fracatlas_fractured_010.jpg,1,FracAtlas,Hand,train,IMG0002021.jpg
+fracatlas_fractured_011.jpg,1,FracAtlas,Hand,train,IMG0002106.jpg
+fracatlas_fractured_012.jpg,1,FracAtlas,Leg,test,IMG0002122.jpg
+fracatlas_fractured_013.jpg,1,FracAtlas,Leg,train,IMG0002123.jpg
+fracatlas_fractured_014.jpg,1,FracAtlas,Hand,test,IMG0002312.jpg
+fracatlas_fractured_015.jpg,1,FracAtlas,Hip,train,IMG0002337.jpg
+fracatlas_fractured_016.jpg,1,FracAtlas,Leg,train,IMG0002348.jpg
+fracatlas_fractured_017.jpg,1,FracAtlas,Leg,train,IMG0002407.jpg
+fracatlas_fractured_018.jpg,1,FracAtlas,Hand,train,IMG0002408.jpg
+fracatlas_fractured_019.jpg,1,FracAtlas,Hand,test,IMG0002413.jpg
+fracatlas_fractured_020.jpg,1,FracAtlas,Hand,train,IMG0002415.jpg
+fracatlas_fractured_021.jpg,1,FracAtlas,Hand,train,IMG0002423.jpg
+fracatlas_fractured_022.jpg,1,FracAtlas,Leg,test,IMG0002424.jpg
+fracatlas_fractured_023.jpg,1,FracAtlas,Hand,test,IMG0002441.jpg
+fracatlas_fractured_024.jpg,1,FracAtlas,Leg,train,IMG0002444.jpg
+fracatlas_fractured_025.jpg,1,FracAtlas,Hand,test,IMG0002445.jpg
+fracatlas_fractured_026.jpg,1,FracAtlas,Hand,train,IMG0002466.jpg
+fracatlas_fractured_027.jpg,1,FracAtlas,Hand,train,IMG0002494.jpg
+fracatlas_fractured_028.jpg,1,FracAtlas,Hand,train,IMG0002496.jpg
+fracatlas_fractured_029.jpg,1,FracAtlas,Leg,train,IMG0002515.jpg
+fracatlas_fractured_030.jpg,1,FracAtlas,Hand,test,IMG0002516.jpg
+fracatlas_fractured_031.jpg,1,FracAtlas,Leg,train,IMG0002534.jpg
+fracatlas_fractured_032.jpg,1,FracAtlas,Leg,test,IMG0002617.jpg
+fracatlas_fractured_033.jpg,1,FracAtlas,Leg,test,IMG0002705.jpg
+fracatlas_fractured_034.jpg,1,FracAtlas,Leg,train,IMG0002732.jpg
+fracatlas_fractured_035.jpg,1,FracAtlas,Hand,train,IMG0002848.jpg
+fracatlas_fractured_036.jpg,1,FracAtlas,Hand,train,IMG0002999.jpg
+fracatlas_fractured_037.jpg,1,FracAtlas,Hand,train,IMG0003093.jpg
+fracatlas_fractured_038.jpg,1,FracAtlas,Leg,train,IMG0003132.jpg
+fracatlas_fractured_039.jpg,1,FracAtlas,Hand,test,IMG0003171.jpg
+fracatlas_fractured_040.jpg,1,FracAtlas,Leg,test,IMG0003182.jpg
+fracatlas_fractured_041.jpg,1,FracAtlas,Hand,train,IMG0003382.jpg
+fracatlas_fractured_042.jpg,1,FracAtlas,Hand,train,IMG0003394.jpg
+fracatlas_fractured_043.jpg,1,FracAtlas,Leg,train,IMG0003520.jpg
+fracatlas_fractured_044.jpg,1,FracAtlas,Hand,train,IMG0003653.jpg
+fracatlas_fractured_045.jpg,1,FracAtlas,Hand,train,IMG0003712.jpg
+fracatlas_fractured_046.jpg,1,FracAtlas,Hand,train,IMG0003810.jpg
+fracatlas_fractured_047.jpg,1,FracAtlas,Hand,train,IMG0003906.jpg
+fracatlas_fractured_048.jpg,1,FracAtlas,Hand,train,IMG0003943.jpg
+fracatlas_fractured_049.jpg,1,FracAtlas,Leg,train,IMG0003954.jpg
+fracatlas_fractured_050.jpg,1,FracAtlas,Hand,train,IMG0004067.jpg
+fracatlas_normal_001.jpg,0,FracAtlas,Hand,train,IMG0000007.jpg
+fracatlas_normal_002.jpg,0,FracAtlas,Leg,train,IMG0000010.jpg
+fracatlas_normal_003.jpg,0,FracAtlas,Hand,test,IMG0000045.jpg
+fracatlas_normal_004.jpg,0,FracAtlas,Hand,train,IMG0000050.jpg
+fracatlas_normal_005.jpg,0,FracAtlas,Hand,train,IMG0000081.jpg
+fracatlas_normal_006.jpg,0,FracAtlas,Leg,test,IMG0000114.jpg
+fracatlas_normal_007.jpg,0,FracAtlas,Leg,train,IMG0000227.jpg
+fracatlas_normal_008.jpg,0,FracAtlas,Leg,test,IMG0000334.jpg
+fracatlas_normal_009.jpg,0,FracAtlas,Hand,train,IMG0000422.jpg
+fracatlas_normal_010.jpg,0,FracAtlas,Leg,train,IMG0000458.jpg
+fracatlas_normal_011.jpg,0,FracAtlas,Hand,train,IMG0000477.jpg
+fracatlas_normal_012.jpg,0,FracAtlas,Hand,train,IMG0000537.jpg
+fracatlas_normal_013.jpg,0,FracAtlas,Hand,train,IMG0000543.jpg
+fracatlas_normal_014.jpg,0,FracAtlas,Hand,train,IMG0000620.jpg
+fracatlas_normal_015.jpg,0,FracAtlas,Hand,train,IMG0000661.jpg
+fracatlas_normal_016.jpg,0,FracAtlas,Leg,test,IMG0000694.jpg
+fracatlas_normal_017.jpg,0,FracAtlas,Hand,test,IMG0000824.jpg
+fracatlas_normal_018.jpg,0,FracAtlas,Leg,test,IMG0001028.jpg
+fracatlas_normal_019.jpg,0,FracAtlas,Hip,train,IMG0001069.jpg
+fracatlas_normal_020.jpg,0,FracAtlas,Hand,train,IMG0001082.jpg
+fracatlas_normal_021.jpg,0,FracAtlas,Hand,train,IMG0001171.jpg
+fracatlas_normal_022.jpg,0,FracAtlas,Hand,train,IMG0001207.jpg
+fracatlas_normal_023.jpg,0,FracAtlas,Leg,train,IMG0001292.jpg
+fracatlas_normal_024.jpg,0,FracAtlas,Leg,train,IMG0001476.jpg
+fracatlas_normal_025.jpg,0,FracAtlas,Leg,train,IMG0001488.jpg
+fracatlas_normal_026.jpg,0,FracAtlas,Leg,test,IMG0001538.jpg
+fracatlas_normal_027.jpg,0,FracAtlas,Hand,train,IMG0001908.jpg
+fracatlas_normal_028.jpg,0,FracAtlas,Hand,test,IMG0001918.jpg
+fracatlas_normal_029.jpg,0,FracAtlas,Hand,train,IMG0002002.jpg
+fracatlas_normal_030.jpg,0,FracAtlas,Leg,train,IMG0002063.jpg
+fracatlas_normal_031.jpg,0,FracAtlas,Leg,train,IMG0002637.jpg
+fracatlas_normal_032.jpg,0,FracAtlas,Hand,test,IMG0002684.jpg
+fracatlas_normal_033.jpg,0,FracAtlas,Hand,test,IMG0002761.jpg
+fracatlas_normal_034.jpg,0,FracAtlas,Leg,train,IMG0002837.jpg
+fracatlas_normal_035.jpg,0,FracAtlas,Hand,train,IMG0002867.jpg
+fracatlas_normal_036.jpg,0,FracAtlas,Hand,train,IMG0002961.jpg
+fracatlas_normal_037.jpg,0,FracAtlas,Hand,train,IMG0003088.jpg
+fracatlas_normal_038.jpg,0,FracAtlas,Hand,train,IMG0003126.jpg
+fracatlas_normal_039.jpg,0,FracAtlas,Hand,train,IMG0003133.jpg
+fracatlas_normal_040.jpg,0,FracAtlas,Hand,test,IMG0003195.jpg
+fracatlas_normal_041.jpg,0,FracAtlas,Leg,test,IMG0003269.jpg
+fracatlas_normal_042.jpg,0,FracAtlas,Hand,train,IMG0003433.jpg
+fracatlas_normal_043.jpg,0,FracAtlas,Leg,test,IMG0003437.jpg
+fracatlas_normal_044.jpg,0,FracAtlas,Hand,train,IMG0003462.jpg
+fracatlas_normal_045.jpg,0,FracAtlas,Leg,test,IMG0003575.jpg
+fracatlas_normal_046.jpg,0,FracAtlas,Hand,train,IMG0003706.jpg
+fracatlas_normal_047.jpg,0,FracAtlas,Hand,train,IMG0004003.jpg
+fracatlas_normal_048.jpg,0,FracAtlas,Hand,test,IMG0004065.jpg
+fracatlas_normal_049.jpg,0,FracAtlas,Hand,train,IMG0004075.jpg
+fracatlas_normal_050.jpg,0,FracAtlas,Hand,train,IMG0004265.jpg
+bonefx_fractured_001.jpg,1,BoneFX,Mixed,test,test/fractured/001.png
+bonefx_fractured_002.jpg,1,BoneFX,Mixed,train,test/fractured/87-rotated2-rotated3.jpg
+bonefx_fractured_003.jpg,1,BoneFX,Mixed,train,train/fractured/13.png
+bonefx_fractured_004.jpg,1,BoneFX,Mixed,train,train/fractured/141.jpg
+bonefx_fractured_005.jpg,1,BoneFX,Mixed,test,train/fractured/190.jpg
+bonefx_fractured_006.jpg,1,BoneFX,Mixed,train,train/fractured/2-rotated2-rotated2-rotated1 - Copy.jpg
+bonefx_fractured_007.jpg,1,BoneFX,Mixed,train,train/fractured/219.jpg
+bonefx_fractured_008.jpg,1,BoneFX,Mixed,train,train/fractured/3-rotated1-rotated2-rotated2 - Copy (1).jpg
+bonefx_fractured_009.jpg,1,BoneFX,Mixed,train,train/fractured/3-rotated2-rotated3.jpg
+bonefx_fractured_010.jpg,1,BoneFX,Mixed,train,train/fractured/6-rotated1-rotated1-rotated2.jpg
+bonefx_fractured_011.jpg,1,BoneFX,Mixed,train,train/fractured/6-rotated2-rotated3-rotated2 (1).jpg
+bonefx_fractured_012.jpg,1,BoneFX,Mixed,test,train/fractured/6-rotated3-rotated3-rotated1.jpg
+bonefx_fractured_013.jpg,1,BoneFX,Mixed,train,train/fractured/7-rotated2-rotated2-rotated1 (1).jpg
+bonefx_fractured_014.jpg,1,BoneFX,Mixed,test,train/fractured/7-rotated3-rotated2-rotated1 - Copy.jpg
+bonefx_fractured_015.jpg,1,BoneFX,Mixed,train,train/fractured/7221-PB8-R1.png
+bonefx_fractured_016.jpg,1,BoneFX,Mixed,train,train/fractured/79-rotated2-rotated1-rotated3.jpg
+bonefx_fractured_017.jpg,1,BoneFX,Mixed,test,train/fractured/79-rotated3-rotated2-rotated3 (1).jpg
+bonefx_fractured_018.jpg,1,BoneFX,Mixed,train,train/fractured/79-rotated3-rotated3-rotated1 - Copy.jpg
+bonefx_fractured_019.jpg,1,BoneFX,Mixed,test,train/fractured/8-rotated3-rotated1-rotated1 (1).jpg
+bonefx_fractured_020.jpg,1,BoneFX,Mixed,train,train/fractured/80-rotated2-rotated1-rotated2 - Copy.jpg
+bonefx_fractured_021.jpg,1,BoneFX,Mixed,train,train/fractured/80-rotated2-rotated3-rotated1 - Copy.jpg
+bonefx_fractured_022.jpg,1,BoneFX,Mixed,test,train/fractured/80-rotated3-rotated1 (1).jpg
+bonefx_fractured_023.jpg,1,BoneFX,Mixed,train,train/fractured/83-rotated2-rotated3-rotated2.jpg
+bonefx_fractured_024.jpg,1,BoneFX,Mixed,test,train/fractured/84-rotated1-rotated3-rotated1 - Copy (1).jpg
+bonefx_fractured_025.jpg,1,BoneFX,Mixed,test,train/fractured/85-rotated2-rotated1-rotated1 - Copy.jpg
+bonefx_fractured_026.jpg,1,BoneFX,Mixed,train,train/fractured/86-rotated3-rotated3-rotated3 - Copy (1).jpg
+bonefx_fractured_027.jpg,1,BoneFX,Mixed,train,train/fractured/87-rotated1-rotated1-rotated1 - Copy (1).jpg
+bonefx_fractured_028.jpg,1,BoneFX,Mixed,train,train/fractured/89-rotated2-rotated3-rotated3.jpg
+bonefx_fractured_029.jpg,1,BoneFX,Mixed,train,train/fractured/9-rotated1-rotated1 - Copy.jpg
+bonefx_fractured_030.jpg,1,BoneFX,Mixed,train,train/fractured/9-rotated2-rotated2-rotated1 (1).jpg
+bonefx_fractured_031.jpg,1,BoneFX,Mixed,test,train/fractured/90-rotated2-rotated2 - Copy.jpg
+bonefx_fractured_032.jpg,1,BoneFX,Mixed,train,train/fractured/90-rotated3 (1).jpg
+bonefx_fractured_033.jpg,1,BoneFX,Mixed,test,train/fractured/91-rotated1-rotated1-rotated2.jpg
+bonefx_fractured_034.jpg,1,BoneFX,Mixed,train,train/fractured/92-rotated2-rotated1-rotated2.jpg
+bonefx_fractured_035.jpg,1,BoneFX,Mixed,train,train/fractured/92-rotated2-rotated2 - Copy.jpg
+bonefx_fractured_036.jpg,1,BoneFX,Mixed,train,train/fractured/93-rotated2-rotated1-rotated3 - Copy.jpg
+bonefx_fractured_037.jpg,1,BoneFX,Mixed,train,train/fractured/94-rotated1-rotated1-rotated2 - Copy.jpg
+bonefx_fractured_038.jpg,1,BoneFX,Mixed,train,train/fractured/95-rotated2-rotated2-rotated2 (1).jpg
+bonefx_fractured_039.jpg,1,BoneFX,Mixed,test,train/fractured/95-rotated2-rotated3-rotated3 - Copy.jpg
+bonefx_fractured_040.jpg,1,BoneFX,Mixed,train,train/fractured/96-rotated2-rotated1-rotated2 (1).jpg
+bonefx_fractured_041.jpg,1,BoneFX,Mixed,train,train/fractured/96-rotated3-rotated3 (1).jpg
+bonefx_fractured_042.jpg,1,BoneFX,Mixed,train,train/fractured/97-rotated1-rotated1-rotated2 - Copy.jpg
+bonefx_fractured_043.jpg,1,BoneFX,Mixed,train,train/fractured/97-rotated1-rotated3-rotated1 - Copy.jpg
+bonefx_fractured_044.jpg,1,BoneFX,Mixed,train,train/fractured/97-rotated3-rotated2-rotated2.jpg
+bonefx_fractured_045.jpg,1,BoneFX,Mixed,test,train/fractured/99-rotated1-rotated1-rotated1.jpg
+bonefx_fractured_046.jpg,1,BoneFX,Mixed,test,train/fractured/99-rotated2-rotated2-rotated2.jpg
+bonefx_fractured_047.jpg,1,BoneFX,Mixed,train,val/fractured/1-rotated3-rotated3-rotated2.jpg
+bonefx_fractured_048.jpg,1,BoneFX,Mixed,train,val/fractured/7-rotated1-rotated2-rotated3.jpg
+bonefx_fractured_049.jpg,1,BoneFX,Mixed,train,val/fractured/85-rotated1-rotated2-rotated1.jpg
+bonefx_fractured_050.jpg,1,BoneFX,Mixed,test,val/fractured/images25.jpg
+bonefx_normal_001.jpg,0,BoneFX,Mixed,train,test/not fractured/42-rotated1-rotated1-rotated3.jpg
+bonefx_normal_002.jpg,0,BoneFX,Mixed,train,train/not fractured/13-rotated1 (1).jpg
+bonefx_normal_003.jpg,0,BoneFX,Mixed,train,train/not fractured/14-rotated2-rotated2-rotated2-rotated1.jpg
+bonefx_normal_004.jpg,0,BoneFX,Mixed,train,train/not fractured/14-rotated2-rotated3 (1).jpg
+bonefx_normal_005.jpg,0,BoneFX,Mixed,test,train/not fractured/17-rotated3-rotated2-rotated2 (1).jpg
+bonefx_normal_006.jpg,0,BoneFX,Mixed,train,train/not fractured/19-rotated1-rotated3 (1).jpg
+bonefx_normal_007.jpg,0,BoneFX,Mixed,train,train/not fractured/19-rotated1-rotated3-rotated3-rotated1.jpg
+bonefx_normal_008.jpg,0,BoneFX,Mixed,train,train/not fractured/2-rotated1-rotated3-rotated1 (2).jpg
+bonefx_normal_009.jpg,0,BoneFX,Mixed,train,train/not fractured/20-rotated1-rotated1-rotated3.jpg
+bonefx_normal_010.jpg,0,BoneFX,Mixed,train,train/not fractured/21-rotated3-rotated2-rotated2-rotated1.jpg
+bonefx_normal_011.jpg,0,BoneFX,Mixed,train,train/not fractured/24-rotated3-rotated3-rotated3 (1).jpg
+bonefx_normal_012.jpg,0,BoneFX,Mixed,train,train/not fractured/27-rotated1-rotated1.jpg
+bonefx_normal_013.jpg,0,BoneFX,Mixed,train,train/not fractured/28-rotated2-rotated2.jpg
+bonefx_normal_014.jpg,0,BoneFX,Mixed,train,train/not fractured/28.jpg
+bonefx_normal_015.jpg,0,BoneFX,Mixed,train,train/not fractured/3-rotated2-rotated3.jpg
+bonefx_normal_016.jpg,0,BoneFX,Mixed,train,train/not fractured/31-rotated2-rotated1-rotated3 (1).jpg
+bonefx_normal_017.jpg,0,BoneFX,Mixed,train,train/not fractured/32-rotated3-rotated1-rotated3-rotated1 (1).jpg
+bonefx_normal_018.jpg,0,BoneFX,Mixed,train,train/not fractured/38-rotated2-rotated1-rotated2-rotated1.jpg
+bonefx_normal_019.jpg,0,BoneFX,Mixed,train,train/not fractured/38-rotated2-rotated1-rotated3-rotated1 (1).jpg
+bonefx_normal_020.jpg,0,BoneFX,Mixed,test,train/not fractured/39-rotated1-rotated3-rotated3 (1).jpg
+bonefx_normal_021.jpg,0,BoneFX,Mixed,test,train/not fractured/39-rotated2-rotated3-rotated3-rotated1.jpg
+bonefx_normal_022.jpg,0,BoneFX,Mixed,test,train/not fractured/4-rotated1-rotated1-rotated1 (1).jpg
+bonefx_normal_023.jpg,0,BoneFX,Mixed,test,train/not fractured/4-rotated1-rotated3-rotated1-rotated1 (1).jpg
+bonefx_normal_024.jpg,0,BoneFX,Mixed,train,train/not fractured/41-rotated2-rotated3-rotated1-rotated1.jpg
+bonefx_normal_025.jpg,0,BoneFX,Mixed,train,train/not fractured/43-rotated1-rotated1.jpg
+bonefx_normal_026.jpg,0,BoneFX,Mixed,train,train/not fractured/43-rotated2-rotated3-rotated2.jpg
+bonefx_normal_027.jpg,0,BoneFX,Mixed,train,train/not fractured/44-rotated3-rotated3-rotated1-rotated1.jpg
+bonefx_normal_028.jpg,0,BoneFX,Mixed,train,train/not fractured/45-rotated2-rotated1-rotated3.jpg
+bonefx_normal_029.jpg,0,BoneFX,Mixed,train,train/not fractured/45-rotated2-rotated3-rotated2 (1).jpg
+bonefx_normal_030.jpg,0,BoneFX,Mixed,train,train/not fractured/47-rotated2.jpg
+bonefx_normal_031.jpg,0,BoneFX,Mixed,test,train/not fractured/5-rotated2-rotated2-rotated2.jpg
+bonefx_normal_032.jpg,0,BoneFX,Mixed,test,train/not fractured/5-rotated3-rotated1 (1).jpg
+bonefx_normal_033.jpg,0,BoneFX,Mixed,test,train/not fractured/51-rotated3-rotated2-rotated3-rotated1 (1).jpg
+bonefx_normal_034.jpg,0,BoneFX,Mixed,train,train/not fractured/53-rotated3-rotated2-rotated2.jpg
+bonefx_normal_035.jpg,0,BoneFX,Mixed,train,train/not fractured/54-rotated2-rotated2-rotated1-rotated1.jpg
+bonefx_normal_036.jpg,0,BoneFX,Mixed,test,train/not fractured/59-rotated3-rotated2-rotated2-rotated1.jpg
+bonefx_normal_037.jpg,0,BoneFX,Mixed,train,train/not fractured/6-rotated1-rotated1-rotated2 (1).jpg
+bonefx_normal_038.jpg,0,BoneFX,Mixed,train,train/not fractured/65-rotated2-rotated2.jpg
+bonefx_normal_039.jpg,0,BoneFX,Mixed,test,train/not fractured/7-rotated1-rotated2-rotated2 (2).jpg
+bonefx_normal_040.jpg,0,BoneFX,Mixed,train,train/not fractured/70-rotated2-rotated3-rotated2-rotated1.jpg
+bonefx_normal_041.jpg,0,BoneFX,Mixed,test,train/not fractured/8-rotated3-rotated2-rotated1 (1).jpg
+bonefx_normal_042.jpg,0,BoneFX,Mixed,train,train/not fractured/8-rotated3-rotated3-rotated3 (2).jpg
+bonefx_normal_043.jpg,0,BoneFX,Mixed,test,val/not fractured/12-rotated1-rotated1-rotated1.jpg
+bonefx_normal_044.jpg,0,BoneFX,Mixed,train,val/not fractured/16-rotated2-rotated2-rotated2.jpg
+bonefx_normal_045.jpg,0,BoneFX,Mixed,train,val/not fractured/18-rotated1-rotated1-rotated2-rotated1.jpg
+bonefx_normal_046.jpg,0,BoneFX,Mixed,train,val/not fractured/2-rotated2-rotated2-rotated3.jpg
+bonefx_normal_047.jpg,0,BoneFX,Mixed,test,val/not fractured/30-rotated1-rotated2-rotated3-rotated1.jpg
+bonefx_normal_048.jpg,0,BoneFX,Mixed,test,val/not fractured/35-rotated2-rotated1-rotated1.jpg
+bonefx_normal_049.jpg,0,BoneFX,Mixed,test,val/not fractured/40-rotated1-rotated2-rotated3.jpg
+bonefx_normal_050.jpg,0,BoneFX,Mixed,train,val/not fractured/57-rotated2-rotated3-rotated3-rotated1.jpg
